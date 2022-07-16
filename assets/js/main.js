@@ -4,8 +4,8 @@ import blimp from "./blimp.js";
 import bullet from "./bullet.js";
 import cityScape from "./cityscape.js";
 import cloud from "./cloud.js";
-import star from "./star";
-import alien from "./alien";
+import star from "./star.js";
+import alien from "./alien.js";
 import loadLevel from "./LoadLevel.js";
 
 loadSprite("heli", "./assets/sprites/heli.png", {
