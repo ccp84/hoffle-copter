@@ -103,7 +103,7 @@ every one second. If the level file contains an entry 'no spawn' we ignore it
 If the level file contains information on a game object, we instanciate it
 using the values from the JSON file */
 
-const level1 = await loadLevel('./assets/levels/level1.json'); //grab the level from assets folder
+const level1 = await loadLevel('./assets/levels/level2.json'); //grab the level from assets folder
 
 /* index is the position in the level script where we are at. 
 There is a position for every second of real time that passes.
@@ -137,7 +137,7 @@ loop(1, () => {
     }
 
     if (gameObject.object === "star") {
-        starColl.add(new cloud(gameObject.x, gameObject.y, gameObject.speed, gameObject.sized));
+        starColl.add(new star(gameObject.x, gameObject.y, gameObject.speed, gameObject.sized));
     }
 
     if (gameObject.object === "plane") {
