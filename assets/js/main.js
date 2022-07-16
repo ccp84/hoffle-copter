@@ -1,9 +1,11 @@
-import k from "./kaboom.js"
-import plane from "./plane.js"
+import k from "./kaboom.js";
+import plane from "./plane.js";
 import blimp from "./blimp.js";
-import bullet from "./bullet.js"
-import cityScape from "./cityscape.js"
-import cloud from "./cloud.js"
+import bullet from "./bullet.js";
+import cityScape from "./cityscape.js";
+import cloud from "./cloud.js";
+import star from "./star";
+import alien from "./alien";
 import loadLevel from "./LoadLevel.js";
 
 loadSprite("heli", "./assets/sprites/heli.png", {
@@ -26,6 +28,8 @@ let cityScapeColl = new Set();
 let cloudColl = new Set();
 let blimpColl = new Set();
 let planeColl = new Set();
+let starColl = new Set();
+let alienColl = new Set();
 
 /* Sprite assets loaded here */
 
@@ -43,6 +47,7 @@ heli.play("fly");
 /* Load sound effects */
 loadSound("shoot", "./assets/sfx/shoot.wav");
 loadSound("explosion", "./assets/sfx/explosion.wav");
+loadSound("./assets/soundfile/placeholder.mp3");
 
 /* Setup control scheme for player */
 onKeyDown("up", () => {
@@ -98,7 +103,7 @@ every one second. If the level file contains an entry 'no spawn' we ignore it
 If the level file contains information on a game object, we instanciate it
 using the values from the JSON file */
 
-const level2 = await loadLevel('./assets/levels/level2.json'); //grab the level from assets folder
+const level1 = await loadLevel('./assets/levels/level1.json'); //grab the level from assets folder
 
 /* index is the position in the level script where we are at. 
 There is a position for every second of real time that passes.
@@ -117,14 +122,22 @@ loop(1, () => {
         index++;
     }
 
-    gameObject = level2[index];
+    gameObject = level1[index];
 
     if (gameObject.object === "blimp") {
         blimpColl.add(new blimp(gameObject.x, gameObject.y, gameObject.xSpeed, gameObject.ySpeed));
     }
 
+    if (gameObject.object === "alien") {
+        alienColl.add(new alien(gameObject.x, gameObject.y, gameObject.xSpeed, gameObject.ySpeed));
+    }
+
     if (gameObject.object === "cloud") {
         cloudColl.add(new cloud(gameObject.x, gameObject.y, gameObject.speed, gameObject.sized));
+    }
+
+    if (gameObject.object === "star") {
+        starColl.add(new cloud(gameObject.x, gameObject.y, gameObject.speed, gameObject.sized));
     }
 
     if (gameObject.object === "plane") {
@@ -136,6 +149,10 @@ onUpdate(() => {
 
     blimpColl.forEach(blimp => {
         blimp.move();
+    });
+
+    alienColl.forEach(alien => {
+        alien.move();
     });
 
     bullets.forEach(bullet => {
@@ -152,8 +169,12 @@ onUpdate(() => {
         cloud.move();
     });
 
+    starColl.forEach(star => {
+        star.move();
+    })
+
     // Moving plane
     planeColl.forEach(plane => {
         plane.move();
     });
-});
+})

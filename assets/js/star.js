@@ -2,7 +2,7 @@ import k from "./kaboom.js"
 
 loadSprite("star", "./assets/sprites/star.png");
 
-class cloud {
+class star {
 
     constructor(xPos, yPos, speed, size) {
         this.xPos = xPos;
